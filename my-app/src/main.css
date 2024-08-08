@@ -1,0 +1,47 @@
+html, body {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.app {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
+.sidebar {
+    width: 10%;
+    background-color: #f4f4f4;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.top-bar {
+    height: 10%;
+    background-color: #ccc;
+}
+
+.content {
+    display: flex;
+    flex-grow: 1;
+}
+
+.content > div {
+    flex: 1;
+    background-color: #a7f6fb;
+    margin: 5px;
+}
+.todo{
+    color: rgb(130, 224, 93);
+}
+.doing{
+    color: rgb(233, 230, 63);
+}
+.done{
+    color:rgb(245, 54, 54)
+}
