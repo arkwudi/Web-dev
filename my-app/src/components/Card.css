@@ -1,18 +1,71 @@
 .card {
-    background-color: white;
+    background-color: #fff9c4; /* 淡黄色背景，类似便签 */
     border: 1px solid #ccc;
     border-radius: 4px;
-    padding: 16px;
-    margin: 10px 0; 
+    padding: 10px;
+    margin: 10px 0;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+}
+
+.card-title,
+.card-content {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: inherit;
+    color: #333;
+    resize: none; /* 禁止拖动改变输入框大小 */
+    padding: 0;
+    font-size: 1em;
 }
 
 .card-title {
-    margin-top: 0;
-    font-size: 1.25em;
+    border-bottom: 1px solid #ddd; /* 标题下方灰色线条 */
+    font-weight: bold;
 }
 
 .card-content {
-    font-size: 1em;
-    color: #333;
+    flex-grow: 1;
+    line-height: 1.5;
+}
+
+.card-title::placeholder,
+.card-content::placeholder {
+    color: #bbb;
+    opacity: 1; /* 保持占位符颜色不透明 */
+}
+
+.card-title:focus::placeholder,
+.card-content:focus::placeholder {
+    opacity: 0; /* 聚焦时隐藏占位符 */
+}
+
+.card-title:empty::before {
+    content: '标题';
+    color: #bbb;
+    font-weight: bold;
+}
+
+.card-content:empty::before {
+    content: '正文';
+    color: #bbb;
+}
+.delete-button {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: #ff6b6b;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.delete-button:hover {
+    background-color: #ff4b4b;
 }
