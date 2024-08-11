@@ -34,7 +34,7 @@ html, body {
 
 .content > div {
     flex: 1;
-    /* background-color: #a7f6fb; */
+ 
     margin: 5px;
 }
 .todo{
@@ -84,4 +84,33 @@ html, body {
 
 .popup button:hover {
     background-color: #ff4b4b;
+}
+
+.top-bar {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    
+    border-bottom: 1px solid #ddd;
+}
+
+.project-name {
+    color: #bbb; 
+    
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.project-name-input {
+    color: #333;
+    font-size: 1.2em; 
+    border: none;
+    background: transparent;
+    margin-left: 5px;
+    display: inline-block;
+}
+
+
+.project-name-input:focus {
+    outline: none;
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import './Avatar.css';
 
 function Avatar({ currentUser }) {
-    const avatarSrc = `/public/${currentUser}.jpg`;
+    const avatarSrc = `/Web-dev/${currentUser}.jpg`;  
 
     return (
         <div className="avatar-container">
@@ -10,5 +10,6 @@ function Avatar({ currentUser }) {
         </div>
     );
 }
+
 
 export default Avatar;

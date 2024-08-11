@@ -1,4 +1,4 @@
-import React, { useState, useEffect ,useRef} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './main.css';
 import InnerContainer from './components/InnerContainer';
 import Login from './Login';
@@ -8,12 +8,23 @@ function App() {
     const [currentUser, setCurrentUser] = useState(localStorage.getItem('kanbanUser') || '');
     const [showPopup, setShowPopup] = useState(false);
     const popupRef = useRef(null);
-    
+    const [projectName, setProjectName] = useState('');
+    const [isEditing, setIsEditing] = useState(false);
+
     useEffect(() => {
         if (currentUser) {
-            localStorage.setItem('kanbanUser', currentUser);
+            // Load project name for the current user
+            const savedProjectName = localStorage.getItem(`projectName_${currentUser}`) || '';
+            setProjectName(savedProjectName);
         }
     }, [currentUser]);
+
+    useEffect(() => {
+        if (currentUser) {
+            // Save project name for the current user
+            localStorage.setItem(`projectName_${currentUser}`, projectName);
+        }
+    }, [projectName, currentUser]);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -37,8 +48,17 @@ function App() {
         localStorage.removeItem('kanbanUser');
         setShowPopup(false);
     };
+
     const togglePopup = () => {
         setShowPopup(!showPopup);
+    };
+
+    const handleNameChange = (e) => {
+        setProjectName(e.target.value);
+    };
+
+    const handleNameBlur = () => {
+        setIsEditing(false);
     };
 
     if (!currentUser) {
@@ -62,7 +82,26 @@ function App() {
             </div>
             <div className="main-content">
                 <div className="top-bar">
-                    <h2>项目</h2>
+                    <h2>
+                        项目:
+                        {isEditing ? (
+                            <input
+                                type="text"
+                                value={projectName}
+                                onChange={handleNameChange}
+                                onBlur={handleNameBlur}
+                                autoFocus
+                                className="project-name-input"
+                            />
+                        ) : (
+                            <span
+                                className={`project-name ${!projectName && 'placeholder'}`}
+                                onClick={() => setIsEditing(true)}
+                            >
+                                {projectName || '名称'}
+                            </span>
+                        )}
+                    </h2>
                 </div>
                 <div className="content">
                     <div>
