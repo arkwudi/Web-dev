@@ -1,16 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect ,useRef} from 'react';
 import './main.css';
 import InnerContainer from './components/InnerContainer';
 import Login from './Login';
+import Avatar from './components/Avatar';
 
 function App() {
     const [currentUser, setCurrentUser] = useState(localStorage.getItem('kanbanUser') || '');
-
+    const [showPopup, setShowPopup] = useState(false);
+    const popupRef = useRef(null);
+    
     useEffect(() => {
         if (currentUser) {
             localStorage.setItem('kanbanUser', currentUser);
         }
     }, [currentUser]);
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (popupRef.current && !popupRef.current.contains(event.target)) {
+                setShowPopup(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
     const handleLogin = (username) => {
         setCurrentUser(username);
@@ -19,6 +35,10 @@ function App() {
     const handleSwitchAccount = () => {
         setCurrentUser('');
         localStorage.removeItem('kanbanUser');
+        setShowPopup(false);
+    };
+    const togglePopup = () => {
+        setShowPopup(!showPopup);
     };
 
     if (!currentUser) {
@@ -28,8 +48,16 @@ function App() {
     return (
         <div className="app">
             <div className="sidebar">
-                <div onClick={handleSwitchAccount}>
-                    {currentUser}（点击切换账号）
+                <Avatar currentUser={currentUser} />
+                <div className="username-container">
+                    <div onClick={togglePopup} className="username">
+                        {currentUser}
+                    </div>
+                    {showPopup && (
+                        <div className="popup" ref={popupRef} onClick={handleSwitchAccount}>
+                            切换账号
+                        </div>
+                    )}
                 </div>
             </div>
             <div className="main-content">

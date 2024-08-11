@@ -9,7 +9,11 @@
     flex-direction: column;
     gap: 10px;
     position: relative;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
 }
+
+
 
 .card-title,
 .card-content {
@@ -21,6 +25,7 @@
     resize: none; /* 禁止拖动改变输入框大小 */
     padding: 0;
     font-size: 1em;
+    cursor: pointer;
 }
 
 .card-title {
@@ -54,11 +59,52 @@
     content: '正文';
     color: #bbb;
 }
-.delete-button {
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 50%;
+    max-height: 80%;
+    overflow-y: auto;
+    position: relative;
+}
+
+.modal-title,
+.modal-content {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.attachments {
+    margin-top: 10px;
+}
+
+.attachment {
+    background: #f1f1f1;
+    border: 1px solid #ddd;
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
+.modal-save-button {
     position: absolute;
     bottom: 10px;
     right: 10px;
-    background-color: #ff6b6b;
+    background-color: #4CAF50;
     color: white;
     border: none;
     border-radius: 3px;
@@ -66,6 +112,40 @@
     cursor: pointer;
 }
 
-.delete-button:hover {
-    background-color: #ff4b4b;
+.modal-save-button:hover {
+    background-color: #45a049;
+}
+.fullscreen-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8); /* Darker background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.fullscreen-content {
+    width: 90%;
+    height: 90%;
+    max-height: none;
+    padding: 20px;
+    position: relative;
+    background-color: #fff9c4;
+    overflow-y: auto;
+    border-radius: 8px;
+}
+
+.modal-close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
 }

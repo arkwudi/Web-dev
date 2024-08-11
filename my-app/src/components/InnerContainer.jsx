@@ -1,21 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import Card from './Card';  // 引入 Card 组件
+import Card from './Card';
+import './InnerContainer.css';
 
-function InnerContainer({ currentUser, column }) {
+function InnerContainer({ currentUser,column}) {
     const [cards, setCards] = useState([]);
+    const [modalCardId, setModalCardId] = useState(null);
 
     useEffect(() => {
-        // 从 localStorage 中获取当前用户的特定列的看板数据
+        
         const storedCards = localStorage.getItem(`${currentUser}_${column}_cards`);
         if (storedCards) {
             setCards(JSON.parse(storedCards));
         }
-    }, [currentUser, column]);
+    }, [currentUser, column]); 
+
 
     useEffect(() => {
-        // 将当前用户的特定列的卡片数据保存到 localStorage
+        
         localStorage.setItem(`${currentUser}_${column}_cards`, JSON.stringify(cards));
-    }, [cards, currentUser, column]);
+    }, [cards, currentUser, column]); 
 
     const addCard = () => {
         const newCard = { id: Date.now(), title: '', content: '' };
@@ -26,8 +29,8 @@ function InnerContainer({ currentUser, column }) {
         setCards(cards.filter(card => card.id !== id));
     };
 
-    const updateCard = (id, newTitle, newContent) => {
-        setCards(cards.map(card => 
+    const updateCardText = (id, newTitle, newContent) => {
+        setCards(cards.map(card =>
             card.id === id ? { ...card, title: newTitle, content: newContent } : card
         ));
     };
@@ -41,10 +44,13 @@ function InnerContainer({ currentUser, column }) {
                     title={card.title}
                     content={card.content}
                     onDelete={deleteCard}
-                    onUpdate={updateCard} // 传递 updateCard 方法
+                    onUpdate={updateCardText}
+                    isModalOpen={modalCardId}
+                    setModalOpen={setModalCardId}
+                
                 />
             ))}
-            <button onClick={addCard}>+ 添加</button>
+            <button className = 'add-button'onClick={addCard}>+ 添加</button>
         </div>
     );
 }

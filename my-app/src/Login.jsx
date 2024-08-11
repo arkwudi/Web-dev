@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-
+import './Login.css';
 const validUsernames = ['Ark', 'Texas', 'Wishdel'];
 
 function Login({ onLogin }) {
@@ -18,15 +18,16 @@ function Login({ onLogin }) {
 
     return (
         <div className="login-container">
+            
             <form onSubmit={handleSubmit}>
                 <label>用户名:</label>
-                <input
+                <input className='login-input'
                     type="text"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     placeholder="输入用户名"
                 />
-                <button type="submit">登录</button>
+                <button className='login-button'type="submit">登录</button>
             </form>
         </div>
     );
